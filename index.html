@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DoorPass — Gym entry, renewals & recovery</title>
+<meta name="description" content="DoorPass is the WhatsApp-native door lock and renewal loop for Indian gyms. Scan, block or renew in one tap, and watch recovered revenue climb.">
+<meta name="theme-color" content="#0A100D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230A100D'/%3E%3Cpath d='M20 44V20h16a12 12 0 0 1 0 24H20' fill='none' stroke='%23C9F36A' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M20 32h14' stroke='%23C9F36A' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="doorpass.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="DoorPass navigation">
+    <a class="brand" href="#door" data-nav="door">
+      <span class="brand__mark" aria-hidden="true">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/><path d="M2 21h16"/><path d="M9 12h.01"/><path d="M16 8h4v13h-4"/><path d="M20 12h.01"/></svg>
+      </span>
+      <span><span class="brand__word">Door<span>Pass</span></span><span class="brand__tag">Entry &amp; recovery</span></span>
+    </a>
+
+    <div class="gym-card">
+      <span class="gym-card__logo">IT</span>
+      <span style="min-width:0">
+        <span class="gym-card__name">Iron Temple</span>
+        <span class="gym-card__sub">Fitness · Anna Nagar</span>
+      </span>
+      <span class="gym-card__badge">Growth</span>
+    </div>
+
+    <nav class="nav" id="nav" aria-label="Main"></nav>
+
+    <div class="sidebar__foot">
+      <div class="device-card" aria-label="Device status">
+        <div class="device-card__row"><span class="dot" id="side-dot"></span><strong id="side-net">Desk tablet online</strong></div>
+        <div class="device-card__row"><span class="muted" style="color:#7E9084">Cached members</span><strong style="margin-left:auto" id="side-cache">16</strong></div>
+        <div class="device-card__row"><span style="color:#7E9084">Last sync</span><strong style="margin-left:auto" id="side-sync">just now</strong></div>
+      </div>
+      <div class="sidebar__tools">
+        <button class="sidebar__reset" data-act="export-backup" type="button" title="Download every member and event as JSON">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+          Backup
+        </button>
+        <button class="sidebar__reset" data-act="import-backup" type="button" title="Restore from a DoorPass JSON backup">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="m7 14 5-5 5 5"/><path d="M4 3h16"/></svg>
+          Restore
+        </button>
+      </div>
+      <button class="sidebar__reset" data-act="reset-demo" type="button">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset demo data
+      </button>
+    </div>
+  </aside>
+
+  <input type="file" id="backupFile" accept="application/json,.json" hidden>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false" type="button">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div style="min-width:0">
+        <div class="topbar__crumb">Iron Temple <span>/</span> <span id="crumb">Door</span></div>
+        <div class="topbar__title" id="pageTitle">Door</div>
+      </div>
+      <div class="topbar__right">
+        <button class="search-trigger" data-act="palette" type="button" aria-label="Search everything (Ctrl K)">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+          <span>Search members…</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+        <span class="chip-status hide-xs" id="netChip"><span class="dot" id="netDot"></span><span id="netLabel">Online</span></span>
+        <button class="icon-btn notify-btn" id="actionBtn" data-act="action-center" type="button" aria-label="Action center"></button>
+        <button class="icon-btn" id="themeBtn" data-act="theme" type="button" aria-label="Switch theme"></button>
+        <button class="icon-btn" data-act="palette" type="button" aria-label="Open command menu">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="demo-note" id="demoNote">
+      <div class="demo-note__body">
+        <span class="demo-dot" aria-hidden="true"></span>
+        <span><strong>Demo mode.</strong> Payments, WhatsApp and the door relay are simulated. Owner override PIN <code>2468</code>. Changes are saved in this browser.</span>
+      </div>
+      <button type="button" data-act="dismiss-note" aria-label="Dismiss demo note">Dismiss</button>
+    </div>
+
+    <main id="main" tabindex="-1"></main>
+  </div>
+</div>
+
+<nav class="mobilenav" id="mobilenav" aria-label="Mobile navigation"></nav>
+<div id="toast-root" role="status" aria-live="polite"></div>
+<div id="modal-root"></div>
+<div id="palette-root"></div>
+
+<script src="qrcode.min.js"></script>
+<script src="doorpass.js"></script>
+</body>
+</html>
