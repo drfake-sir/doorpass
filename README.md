@@ -4,6 +4,8 @@ A polished, front-end-only product prototype for Indian gyms. DoorPass turns the
 front desk into a recovery channel: scan a member's rotating QR, block or allow
 entry, and renew on the spot before the member walks out.
 
+**Live demo: https://drfake-sir.github.io/doorpass/**
+
 No build step. Open `index.html` in a browser, or serve the folder with any
 static server.
 
